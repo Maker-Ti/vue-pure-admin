@@ -31,6 +31,7 @@
     "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.6",
     "vue-types": "^3.0.2",
+    "vue2-verify": "^1.1.5",
     "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0",
     "vxe-table": "^4.0.7-beta.4",

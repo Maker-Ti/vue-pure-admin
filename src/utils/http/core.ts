@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import Axios, {
   AxiosRequestConfig,
   CancelTokenStatic,
@@ -157,6 +157,8 @@ class EnclosureHttp {
     const instance = EnclosureHttp.axiosInstance
     instance.interceptors.response.use(
       (response: EnclosureHttpResoponse) => {
+        //打印返回信息
+        console.log(JSON.stringify(response.data));
         // 请求每次成功一次就删除当前canceltoken标记
         const cancelKey = this.genUniqueKey(response.config)
         this.deleteCancelTokenByCancelKey(cancelKey)
@@ -188,7 +190,7 @@ class EnclosureHttp {
             this.currentCancelTokenKey = ""
           }
         }
-        $error.isCancelRequest = Axios.isCancel($error)
+        $error.isCancelRequest = Axios.isCancel($error);
         // 所有的响应异常 区分来源为取消请求/非取消请求
         return Promise.reject($error)
       }

@@ -10,17 +10,22 @@
 
     <div class="right-menu">
       <screenfull />
-      <div class="inter" :title="langs ? '中文' : '英文'" @click="toggleLang">
+     <!-- <div class="inter" :title="langs ? '中文' : '英文'" @click="toggleLang">
         <img :src="langs ? ch : en" />
-      </div>
+      </div>-->
       <el-dropdown>
         <span class="el-dropdown-link">
-          <img :src="favicon" />
-          <p>{{ usename }}</p>
+          <img class="roundIcon" src="http://127.0.0.1:8080/user/image?name=rect.png" />
+          <i class="el-icon-caret-bottom"></i>
+
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item icon="el-icon-switch-button" @click="logout">
+          <el-dropdown-menu >
+            <el-dropdown-item style="text-align: center">
+              Sign in <span style="font-weight:bold;font-size: 16px">{{ usename }}</span>
+            </el-dropdown-item>
+            <el-divider style=""></el-divider>
+            <el-dropdown-item  icon="el-icon-switch-button" @click="logout">
               {{ $t("LoginOut") }}
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -100,6 +105,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  .el-divider{
+    margin:0 ;
+  }
+
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -144,7 +153,9 @@ export default defineComponent({
       }
     }
     .el-dropdown-link {
-      width: 80px;
+      padding-left: 5px;
+      padding-right: 5px;
+      width: 45px;
       height: 48px;
       display: flex;
       align-items: center;
@@ -165,14 +176,18 @@ export default defineComponent({
 }
 // single element-plus reset
 .el-dropdown-menu__item {
+  font-size: 13px;
   padding: 0 10px;
 }
 .el-dropdown-menu {
-  padding: 0;
-}
+  border-radius: 5px;
+  padding-top: 5px;
+
+padding-bottom: 5px}
 .el-dropdown-menu__item:focus,
 .el-dropdown-menu__item:not(.is-disabled):hover {
-  color: #606266;
-  background: #f0f0f0;
+  color: #fff;
+  background: #409EFF;
+
 }
 </style>

@@ -8,7 +8,7 @@ export const defaultConfig: AxiosRequestConfig = {
   timeout: 10000, //10秒超时
   headers: {
     Accept: "application/json, text/plain, */*",
-    "Content-Type": "application/json",
+    "Content-Type": "application/json;charset=UTF-8",
     "X-Requested-With": "XMLHttpRequest"
   },
 }

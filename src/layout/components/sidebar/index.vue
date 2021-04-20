@@ -1,9 +1,23 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <div>
+
+      <transition name="el-zoom-in-top">
+        <div v-show="!isCollapse"  :style="isCollapse?'background:#545c64;height: 0px;':'background:#343a40;height: 50px;'">
+        <el-button
+
+              type="primary"
+              style="
+              color:#fff;
+              font-weight:bold;background:rgba(5,6,99,0);border:rgba(5,6,99,0);height: 50px;width:100%;font-size: 20px">
+        QuickWord</el-button>
+        </div>
+      </transition>
+  <el-scrollbar>
+
     <el-menu
       :default-active="activeMenu"
       :collapse="isCollapse"
-      background-color="#304156"
+      background-color="#545c64"
       text-color="#bfcbd9"
       :unique-opened="false"
       active-text-color="#409EFF"
@@ -19,6 +33,7 @@
       />
     </el-menu>
   </el-scrollbar>
+  </div>
 </template>
 
 <script lang="ts">

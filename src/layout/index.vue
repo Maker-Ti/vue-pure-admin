@@ -6,6 +6,7 @@
       @click="handleClickOutside"
     />
     <!-- 侧边栏 -->
+
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
@@ -18,7 +19,7 @@
       <app-main />
     </div>
     <!-- 系统设置 -->
-    <setting />
+   <!-- <setting />-->
   </div>
 </template>
 

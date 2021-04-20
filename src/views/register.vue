@@ -1,5 +1,6 @@
 <template>
   <div class="register">
+
     <info :ruleForm="contextInfo" @on-behavior="onRegist" @refreshVerify="refreshVerify" />
   </div>
 </template>
@@ -31,23 +32,24 @@ export default {
     };
 
     const contextInfo: ContextProps = reactive({
-      userName: "",
-      passWord: "",
+      username: "",
+      password: "",
       verify: null,
       svg: null
     });
 
     // 注册
     const onRegist = async () => {
-      let { userName, passWord, verify } = contextInfo;
-      let { code, info } = await getRegist({
-        username: userName,
-        password: passWord,
-        verify: verify
+      let { username, password } = contextInfo;
+      let { status, data } = await getRegist({
+        username: username,
+        password: password,
       });
-      code === 0
-        ? successMessage(info) && router.push("/login")
-        : warnMessage(info);
+      successMessage(data)
+      if(status === 200){
+        router.push("/login")
+      }
+
     };
 
     const refreshVerify = (): void => {

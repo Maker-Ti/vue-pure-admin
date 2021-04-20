@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
       name: 'welcome',
       component: () => import(/* webpackChunkName: "home" */ '../views/welcome.vue'),
       meta: {
-        title: 'home',
+        title: '主页',
         showLink: true,
         savedPosition: false
       }
@@ -27,6 +27,77 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/',
+    name: 'hub',
+    component: Layout,
+    redirect: "/libraryHub",
+    children: [{
+      path: '/libraryHub',
+      name: 'libraryHub',
+      component: () => import(/* webpackChunkName: "home" */ '../views/libraryHub.vue'),
+      meta: {
+        title: '当前词库',
+        showLink: true,
+        savedPosition: false
+      }
+    }],
+    meta: {
+      icon: 'el-icon-notebook-1',
+      showLink: true,
+      savedPosition: false,
+    }
+  },
+  {
+
+    path: '/word',
+    name: 'word',
+    component: Layout,
+    redirect: '/word/base',
+    children: [
+      {
+        path: '/word/base',
+        component: () => import(/* webpackChunkName: "user" */ '../views/word.vue'),
+        meta: {
+          // icon: 'el-icon-user',
+          title: '单词管理',
+          showLink: false,
+          savedPosition: true
+        }
+      },
+    ],
+    meta: {
+      icon: 'el-icon-s-grid',
+      title: '单词管理',
+      showLink: true,
+      savedPosition: true
+    }
+  },
+  {
+
+    path: '/mine',
+    name: 'mine',
+    component: Layout,
+    redirect: '/mine/base',
+    children: [
+      {
+        path: '/mine/base',
+        component: () => import(/* webpackChunkName: "user" */ '../views/mine.vue'),
+        meta: {
+          // icon: 'el-icon-user',
+          title: '我的信息',
+          showLink: false,
+          savedPosition: true
+        }
+      },
+    ],
+    meta: {
+      icon: 'el-icon-user-solid',
+      title: '我的信息',
+      showLink: true,
+      savedPosition: true
+    }
+  },
+  /*{
     path: '/components',
     name: 'components',
     component: Layout,
@@ -34,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/components/video',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/video/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/video/index.vue'),
         meta: {
           title: 'video',
           showLink: false,
@@ -43,7 +114,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/map',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/map/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/map/index.vue'),
         meta: {
           title: 'map',
           showLink: false,
@@ -52,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/draggable',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/draggable/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/draggable/index.vue'),
         meta: {
           title: 'draggable',
           showLink: false,
@@ -61,7 +132,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/split-pane',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/split-pane/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/split-pane/index.vue'),
         meta: {
           title: 'split-pane',
           showLink: false,
@@ -70,7 +141,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/button',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/button/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/button/index.vue'),
         meta: {
           title: 'button',
           showLink: false,
@@ -79,7 +150,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/cropping',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/cropping/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/cropping/index.vue'),
         meta: {
           title: 'cropping',
           showLink: false,
@@ -88,7 +159,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/countTo',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/count-to/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/count-to/index.vue'),
         meta: {
           title: 'countTo',
           showLink: false,
@@ -97,7 +168,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/selector',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/selector/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/selector/index.vue'),
         meta: {
           title: 'selector',
           showLink: false,
@@ -106,7 +177,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/components/seamlessScroll',
-        component: () => import(/* webpackChunkName: "components" */ '../views/components/seamless-scroll/index.vue'),
+        component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/seamless-scroll/index.vue'),
         meta: {
           title: 'seamless',
           showLink: false,
@@ -115,7 +186,7 @@ const routes: Array<RouteRecordRaw> = [
       }
       // {
       //   path: '/components/flowChart',
-      //   component: () => import(/* webpackChunkName: "components" */ '../views/components/flow-chart/index.vue'),
+      //   component: () => import(/!* webpackChunkName: "components" *!/ '../views/components/flow-chart/index.vue'),
       //   meta: {
       //     title: 'flowChart',
       //     showLink: false,
@@ -125,7 +196,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
     meta: {
       icon: 'el-icon-menu',
-      title: 'components',
+      title: '词库',
       showLink: true,
       savedPosition: true
     }
@@ -138,7 +209,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/flowChart/index',
-        component: () => import(/* webpackChunkName: "user" */ '../views/flow-chart/index.vue'),
+        component: () => import(/!* webpackChunkName: "user" *!/ '../views/flow-chart/index.vue'),
         meta: {
           title: 'flowChart',
           showLink: false,
@@ -161,7 +232,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/editor/index',
-        component: () => import(/* webpackChunkName: "user" */ '../views/editor/index.vue'),
+        component: () => import(/!* webpackChunkName: "user" *!/ '../views/editor/index.vue'),
         meta: {
           // icon: 'el-icon-edit-outline',
           title: 'editor',
@@ -176,31 +247,8 @@ const routes: Array<RouteRecordRaw> = [
       showLink: true,
       savedPosition: true
     }
-  },
-  {
-    path: '/user',
-    name: 'user',
-    component: Layout,
-    redirect: '/user/base',
-    children: [
-      {
-        path: '/user/base',
-        component: () => import(/* webpackChunkName: "user" */ '../views/user.vue'),
-        meta: {
-          // icon: 'el-icon-user',
-          title: 'baseinfo',
-          showLink: false,
-          savedPosition: true
-        }
-      },
-    ],
-    meta: {
-      icon: 'el-icon-user',
-      title: 'usermanagement',
-      showLink: true,
-      savedPosition: true
-    }
-  },
+  },*/
+ /*,
   {
     path: '/error',
     name: 'error',
@@ -209,7 +257,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/error/401',
-        component: () => import(/* webpackChunkName: "error" */ '../views/error/401.vue'),
+        component: () => import(/!* webpackChunkName: "error" *!/ '../views/error/401.vue'),
         meta: {
           title: '401',
           showLink: false,
@@ -218,7 +266,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/error/404',
-        component: () => import(/* webpackChunkName: "error" */ '../views/error/404.vue'),
+        component: () => import(/!* webpackChunkName: "error" *!/ '../views/error/404.vue'),
         meta: {
           title: '404',
           showLink: false,
@@ -232,13 +280,13 @@ const routes: Array<RouteRecordRaw> = [
       showLink: true,
       savedPosition: true
     }
-  },
+  }*/,
   {
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
     meta: {
-      title: '登陆',
+      title: '登录',
       showLink: false
     }
   },
@@ -281,6 +329,7 @@ const router = createRouter({
     })
   }
 })
+
 
 import NProgress from "../utils/progress"
 

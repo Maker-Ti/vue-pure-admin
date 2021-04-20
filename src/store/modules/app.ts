@@ -4,7 +4,8 @@ interface stateInter {
     opened: Boolean,
     withoutAnimation: Boolean
   },
-  device: String
+  device: String,
+  loginUser: JSON,
 }
 
 const state = {
@@ -12,7 +13,8 @@ const state = {
     opened: storageLocal.getItem('sidebarStatus') ? !!+storageLocal.getItem('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  loginUser: {},
 }
 
 const mutations = {

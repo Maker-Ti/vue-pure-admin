@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-import { reactive, onBeforeMount } from "vue";
+
+import { reactive, onBeforeMount ,getCurrentInstance} from "vue";
 import info, { ContextProps } from "../components/info/index.vue";
-import { getVerify, getLogin } from "/@/api/user";
+import { getVerify, getLogin,getUserInfo } from "/@/api/user";
 import { useRouter } from "vue-router";
 import { storageSession } from "/@/utils/storage";
 import { warnMessage, successMessage } from "/@/utils/message";
@@ -17,8 +18,9 @@ export default {
     info
   },
   setup() {
-    const router = useRouter();
 
+    const router = useRouter();
+    
     // 刷新验证码
     const refreshGetVerify = async () => {
       let { svg } = await getVerify();
@@ -26,32 +28,47 @@ export default {
     };
 
     const contextInfo: ContextProps = reactive({
-      userName: "",
-      passWord: "",
+      username: "",
+      password: "",
       verify: null,
       svg: null
     });
 
     const toPage = (info: Object): void => {
+        console.log(JSON.stringify(info))
       storageSession.setItem("info", info);
       router.push("/");
     };
 
     // 登录
     const onLogin = async () => {
-      let { userName, passWord, verify } = contextInfo;
-      let { code, info, accessToken } = await getLogin({
-        username: userName,
-        password: passWord,
-        verify: verify
+
+      let { username, password} = contextInfo;
+      let { status, data } = await getLogin({
+        username: username,
+        password: password,
       });
-      code === 0
-        ? successMessage(info) &&
+      successMessage(data)
+      if (status===200){
+          let { status, data } = await getUserInfo({
+              username: username,
+              password: password,
+          });
+
+          if(status===200){
+              toPage({
+                  info: data,
+              })
+          }
+
+      }
+     /* code === 0
+        ? successMessage(msg) &&
           toPage({
-            username: userName,
+            username: username,
             accessToken
           })
-        : warnMessage(info);
+        : warnMessage(msg);*/
     };
 
     const refreshVerify = (): void => {

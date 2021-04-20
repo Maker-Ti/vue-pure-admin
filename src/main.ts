@@ -32,9 +32,11 @@ import "./assets/iconfont/iconfont.css"
 
 import { setConfig, getConfig } from "./config"
 import axios from "axios"
+import {createRouter, createWebHashHistory} from "vue-router";
 
 const app = createApp(App)
 app.config.globalProperties.$config = getConfig()
+
 
 // 获取项目动态全局配置
 export const getServerConfig = async (): Promise<any> => {
@@ -66,5 +68,6 @@ getServerConfig().then(() => {
     .use(VXETable)
     .mount('#app')
 })
+
 
 

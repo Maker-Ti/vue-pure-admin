@@ -1,5 +1,5 @@
 <template>
-  <vxe-grid v-bind="gridOptions" style="width:98%"></vxe-grid>
+  <vxe-grid v-bind="gridOptions" style="width:100%"></vxe-grid>
 </template>
 
 <script lang='ts'>

@@ -1,20 +1,20 @@
 <template>
   <div class="info">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="rule-form">
-      <el-form-item prop="userName">
+      <el-form-item prop="username">
         <el-input
           clearable
-          v-model="ruleForm.userName"
+          v-model="ruleForm.username"
           placeholder="请输入用户名"
           prefix-icon="el-icon-user"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="passWord">
+      <el-form-item prop="password">
         <el-input
           clearable
           type="password"
           show-password
-          v-model="ruleForm.passWord"
+          v-model="ruleForm.password"
           placeholder="请输入密码"
           prefix-icon="el-icon-lock"
         ></el-input>
@@ -26,19 +26,24 @@
           v-model.number="ruleForm.verify"
           placeholder="请输入验证码"
         ></el-input>
+        <vue-img-verify @getImgCode="getImgCode" ref="vueImgVerify" />
         <span class="verify" title="刷新" v-html="ruleForm.svg" @click.prevent="refreshVerify"></span>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click.prevent="onBehavior">{{ tipsFalse }}</el-button>
-        <el-button @click="resetForm">重置</el-button>
+       <div>
+         <el-button style="width: 70%;margin-right: 0" type="primary" @click.prevent="onBehavior">{{ tipsFalse }}</el-button>
+         <el-button style="width: 29%;margin-left: 1%;" @click="resetForm">重置</el-button>
+       </div>
         <span class="tips" @click="changPage">{{ tips }}</span>
       </el-form-item>
-      <span title="测试用户 直接登录" class="secret" @click="noSecret">免密登录</span>
+
+    <!--  <span title="测试用户 直接登录" class="secret" @click="noSecret">免密登录</span>-->
     </el-form>
   </div>
 </template>
 
 <script lang='ts'>
+  import vueImgVerify from './components/verify/vue-img-verify.vue'
 import {
   ref,
   defineComponent,
@@ -51,8 +56,8 @@ import {
 import { storageSession } from "/@/utils/storage";
 
 export interface ContextProps {
-  userName: string;
-  passWord: string;
+  username: string;
+  password: string;
   verify: number | null;
   svg: any;
   telephone?: number;
@@ -61,23 +66,24 @@ export interface ContextProps {
 
 import { useRouter, useRoute } from "vue-router";
 
-export default defineComponent({
+export default ({
   name: "Info",
   props: {
     ruleForm: {
       type: Object as PropType<ContextProps>,
       require: true
     }
+
   },
   emits: ["onBehavior", "refreshVerify"],
   setup(props, ctx) {
-    let vm: any;
 
+    let vm: any;
     let tips = ref("注册");
     let tipsFalse = ref("登录");
-
     const route = useRoute();
     const router = useRouter();
+
 
     watch(
       route,
@@ -87,14 +93,20 @@ export default defineComponent({
           ? (tips.value = "登录") && (tipsFalse.value = "注册")
           : (tips.value = "注册") && (tipsFalse.value = "登录");
       },
-      { immediate: true }
+      { immediate: true },
+
     );
 
+   /* watch(identifyCode,(newProps, oldProps) => {
+      showModal.value = newProps.isOpened;
+      editData.value = newProps.editData as IAdminUser;
+    });*/
+
     const rules: Object = ref({
-      userName: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-      passWord: [
+      username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+      password: [
         { required: true, message: "请输入密码", trigger: "blur" },
-        { min: 6, message: "密码长度必须不小于6位", trigger: "blur" }
+        { min: 3, message: "密码长度必须不小于3位", trigger: "blur" }
       ],
       verify: [
         { required: true, message: "请输入验证码", trigger: "blur" },
@@ -117,7 +129,6 @@ export default defineComponent({
     const refreshVerify = (): void => {
       ctx.emit("refreshVerify");
     };
-
     // 表单重置
     const resetForm = (): void => {
       vm.refs.ruleForm.resetFields();
@@ -148,7 +159,8 @@ export default defineComponent({
       onBehavior,
       refreshVerify,
       changPage,
-      noSecret
+      noSecret,
+
     };
   }
 });
@@ -182,8 +194,9 @@ export default defineComponent({
       }
     }
     .tips {
-      color: #409eff;
       float: right;
+      color: #409eff;
+
       &:hover {
         cursor: pointer;
       }

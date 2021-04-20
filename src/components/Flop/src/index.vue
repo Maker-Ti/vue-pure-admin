@@ -129,7 +129,7 @@ export default {
 .flip-clock em {
   display: inline-block;
   line-height: 102px;
-  font-size: 66px;
+  font-size: 33px;
   font-style: normal;
   vertical-align: top;
 }
